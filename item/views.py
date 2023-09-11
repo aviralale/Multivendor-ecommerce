@@ -85,3 +85,18 @@ def items(request):
         'category_id': int(category_id),
     }
     return render(request, 'item/browser.html', context)
+
+def category_toys(request):
+    items = Item.objects.filter(category='Toys')
+    context = {
+        'category': 'Toys',
+        'items': items
+
+    }
+    return render(request, 'item/category.html', context)
+
+def category_items(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+    items = Item.objects.filter(category=category, is_sold=False)  # Filter items by category and not sold
+    context = {'category': category, 'items': items}
+    return render(request, 'item/category.html', context)

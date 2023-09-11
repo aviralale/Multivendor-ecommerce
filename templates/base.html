@@ -31,7 +31,7 @@
             <a>Category</a>
             <ul class="p-2">
               {% for category in categories %}
-              <li><a>{{category.name}}<span class="badge badge-sm indicator-item">{{category.items.count}}</span></a></li>
+              <li><a href="{%url 'item:category_items' category.id%}">{{category.name}}<span class="badge badge-sm indicator-item">{{category.items.count}}</span></a></li>
               {% endfor %}
             </ul>
           </li>
@@ -56,7 +56,7 @@
             <summary>Category</summary>
             <ul class="p-2">
               {% for category in categories %}
-              <li><a>{{category.name}}<span class="badge badge-sm indicator-item">{{category.items.count}}</span></a></li>
+              <li><a href="{%url 'item:category_items' category.id%}">{{category.name}}<span class="badge badge-sm indicator-item">{{category.items.count}}</span></a></li>
               {% endfor %}
             </ul>
           </details>
@@ -115,7 +115,7 @@
                 </a>
               </li>
               <li><a href="{%url 'item:new'%}">New Item</a></li>
-              <li><a href="/">Logout</a></li>
+              <li><a href="{%url 'core:logout'%}">Logout</a></li>
             </ul>
           </div>
         </div>
@@ -163,6 +163,7 @@
       <a href="https://github.com/dedyspooky" target="_blank" class="underline">Github.</a>
       <a href="https://linkedin.com/in/aviral-ale" target="_blank" class="underline">Li.</a>
       <a href="https://instagram.com/aviral.who_" target="_blank" class="underline">Insta.</a>
+      <a href="https://abiralale.com.np" target="_blank" class="underline">Portfolio.</a>
     </div>
   </nav>
 </footer>

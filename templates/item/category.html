@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
+{% block title %}
+{{category.name}} | 
+{% endblock title %}
+
+
 {% block main %}
 <div class="mt-6 px-6 py-12 rounded-xl bg-gray-800">
     <h2 class="mb-12 text-2xl text-white uppercase text-center">
-        Newest Items
+        {{category.name}}
     </h2>
     <div class="grid grid-cols-3 gap-3">
         {% for item in items %}
@@ -17,27 +22,6 @@
                     </h2>
                     <p class="text-gray-400">
                         Price: $ {{item.price}}
-                    </p>
-                </div>
-            </a>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-<div class="mt-6 px-6 py-12 rounded-xl bg-gray-800">
-    <h2 class="mb-12 text-2xl uppercase text-white text-center">
-        Categories
-    </h2>
-    <div class="grid grid-cols-3 gap-3">
-        {% for category in categories %}
-        <div>
-            <a href="{%url 'item:category_items' category.id%}">
-                <div class="p-6 bg-violet-800 rounded-xl">
-                    <h2 class="text-2xl text-gray-200">
-                        {{category.name}}
-                    </h2>
-                    <p class="text-gray-400">
-                        {{category.items.count}}
                     </p>
                 </div>
             </a>
