@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@3.7.3/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="icon" type="image/x-icon" href="{%static 'img/userdefaultpfp.gif'%}">
+    <link rel="stylesheet" href="{%static 'css/main.css' %}" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>{% block title %}{% endblock title %}Marketplace</title>
+  </head>
+  <div class="navbar bg-base-100">
+    <div class="navbar-start">
+      <div class="dropdown">
+        <label tabindex="0" class="btn btn-ghost lg:hidden">
+          <svg fill="none" viewBox="0 0 24 24" height="2em" width="2em">
+            <path
+              fill="currentColor"
+              d="M4 6a1 1 0 011-1h14a1 1 0 110 2H5a1 1 0 01-1-1zM4 18a1 1 0 011-1h14a1 1 0 110 2H5a1 1 0 01-1-1zM5 11a1 1 0 100 2h8a1 1 0 100-2H5z"
+            />
+          </svg>
+        </label>
+        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+          <li><a href="/">Home</a></li>
+          <li>
+            <a>Category</a>
+            <ul class="p-2">
+              {% for category in categories %}
+              <li><a>{{category.name}}<span class="badge badge-sm indicator-item">{{category.items.count}}</span></a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li><a>Contact</a></li>
+        </ul>
+      </div>
+      <a class="btn btn-ghost normal-case text-xl" href="/">          
+        <svg
+        viewBox="0 0 640 512"
+        fill="#6d28d9"
+        height="2em"
+        width="2em"
+      >
+        <path d="M423.3 440.7c0 25.3-20.3 45.6-45.6 45.6s-45.8-20.3-45.8-45.6 20.6-45.8 45.8-45.8c25.4 0 45.6 20.5 45.6 45.8zm-253.9-45.8c-25.3 0-45.6 20.6-45.6 45.8s20.3 45.6 45.6 45.6 45.8-20.3 45.8-45.6-20.5-45.8-45.8-45.8zm291.7-270C158.9 124.9 81.9 112.1 0 25.7c34.4 51.7 53.3 148.9 373.1 144.2 333.3-5 130 86.1 70.8 188.9 186.7-166.7 319.4-233.9 17.2-233.9z" />
+      </svg>Marketplace</a>
+    </div>
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1">
+        <li><a href="/">Home</a></li>
+        <li tabindex="0">
+          <details>
+            <summary>Category</summary>
+            <ul class="p-2">
+              {% for category in categories %}
+              <li><a>{{category.name}}<span class="badge badge-sm indicator-item">{{category.items.count}}</span></a></li>
+              {% endfor %}
+            </ul>
+          </details>
+        </li>
+        <li><a>Contact</a></li>
+      </ul>
+    </div>
+    <div class="navbar-end">
+            {% if request.user.is_authenticated %}
+        <div class="flex-none">
+          <a href="{%url 'item:items'%}" tabindex="0" class="btn btn-ghost btn-circle">
+            <div class="indicator">
+              <svg
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              height="2em"
+              width="2em"
+            >
+              <path
+                fill="currentColor"
+                d="M15.504 13.616l-3.79-3.223c-.392-.353-.811-.514-1.149-.499a6 6 0 10-.672.672c-.016.338.146.757.499 1.149l3.223 3.79c.552.613 1.453.665 2.003.115s.498-1.452-.115-2.003zM6 10a4 4 0 110-8 4 4 0 010 8z"
+              />
+            </svg>
+            </div>
+          </a>
+          <div class="dropdown dropdown-end">
+            <a href="{%url 'conversation:inbox'%}" tabindex="0" class="btn btn-ghost btn-circle">
+              <div class="indicator">
+                <svg
+                  viewBox="0 0 1024 1024"
+                  fill="currentColor"
+                  height="2em"
+                  width="2em"
+                >
+                  <path
+                    d="M464 512a48 48 0 1096 0 48 48 0 10-96 0zm200 0a48 48 0 1096 0 48 48 0 10-96 0zm-400 0a48 48 0 1096 0 48 48 0 10-96 0zm661.2-173.6c-22.6-53.7-55-101.9-96.3-143.3a444.35 444.35 0 00-143.3-96.3C630.6 75.7 572.2 64 512 64h-2c-60.6.3-119.3 12.3-174.5 35.9a445.35 445.35 0 00-142 96.5c-40.9 41.3-73 89.3-95.2 142.8-23 55.4-34.6 114.3-34.3 174.9A449.4 449.4 0 00112 714v152a46 46 0 0046 46h152.1A449.4 449.4 0 00510 960h2.1c59.9 0 118-11.6 172.7-34.3a444.48 444.48 0 00142.8-95.2c41.3-40.9 73.8-88.7 96.5-142 23.6-55.2 35.6-113.9 35.9-174.5.3-60.9-11.5-120-34.8-175.6zm-151.1 438C704 845.8 611 884 512 884h-1.7c-60.3-.3-120.2-15.3-173.1-43.5l-8.4-4.5H188V695.2l-4.5-8.4C155.3 633.9 140.3 574 140 513.7c-.4-99.7 37.7-193.3 107.6-263.8 69.8-70.5 163.1-109.5 262.8-109.9h1.7c50 0 98.5 9.7 144.2 28.9 44.6 18.7 84.6 45.6 119 80 34.3 34.3 61.3 74.4 80 119 19.4 46.2 29.1 95.2 28.9 145.8-.6 99.6-39.7 192.9-110.1 262.7z"
+                  />
+                </svg>
+              </div>
+            </a>
+          </div>
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+              <div class="w-10 rounded-full">
+                <img src="{%static 'img/userdefaultpfp.gif'%}" />
+              </div>
+            </label>
+            <ul
+              tabindex="0"
+              class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <a href="{%url 'dashboard:index'%}" class="justify-between">
+                  Dashboard
+                  <span class="bg-violet-500 rounded-xl px-1 text-gray-300">New</span>
+                </a>
+              </li>
+              <li><a href="{%url 'item:new'%}">New Item</a></li>
+              <li><a href="/">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+        {% else %}
+        <div class="flex-none">
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-outline mr-2 btn-primary">
+              <div class="indicator">
+                <a href="{% url 'core:signup'%}">Sign up</a>
+              </div>
+            </label>
+          </div>
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-primary">
+              <div class="rounded">
+                <a href="{% url 'core:login' %}">Sign in</a>
+              </div>
+            </label>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+    <div class="px-6 py-6">
+        {% block main %} {% endblock main %}
+    </div>
+<footer class="footer p-10 bg-base-300 text-base-content">
+  <nav>
+    <header class="footer-title">Services</header> 
+    <a class="link link-hover">Branding</a> 
+    <a class="link link-hover">Design</a> 
+    <a class="link link-hover">Marketing</a> 
+    <a class="link link-hover">Advertisement</a>
+  </nav> 
+  <nav>
+    <header class="footer-title">Company</header> 
+    <a class="link link-hover">About us</a> 
+    <a class="link link-hover">Contact</a> 
+    <a class="link link-hover">Jobs</a> 
+    <a class="link link-hover">Press kit</a>
+  </nav> 
+  <nav>
+    <header class="footer-title">Social</header> 
+    <div class="grid grid-flow-col gap-4">
+      <a href="https://github.com/dedyspooky" target="_blank" class="underline">Github.</a>
+      <a href="https://linkedin.com/in/aviral-ale" target="_blank" class="underline">Li.</a>
+      <a href="https://instagram.com/aviral.who_" target="_blank" class="underline">Insta.</a>
+    </div>
+  </nav>
+</footer>
+  </body>
+</html>

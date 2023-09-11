@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}
+New Conversation
+{% endblock title %}
+{% block main %}
+    <h1 class="mb-6 text-3xl">
+        New Conversation
+    </h1>
+    
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="space-y-4">
+            {{form.as_p}}
+        </div>
+        
+        {% if form.errors or form.non_field_errors %}
+        <div class="mb-3 p-6 bg-red-100 rounded-xl">
+            {% for field in form %}
+            {{field.errors}}
+            {% endfor %}
+            {{form.non_field_errors}}
+        </div>
+        {% endif %}
+
+    <button type="submit" class="mt-2 btn btn-success btn-outline">Send</button>
+    </form>
+{% endblock main %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+{{conversation.item.created_by}}
+{% endblock title %}
+{% block main %}
+    <h1 class="mb-6 text-3xl">
+{{conversation.item.created_by}}
+    </h1>
+    <div class="space-y-6">
+        {% for message in conversation.messages.all %}
+            <div class="p-6 flex {% if message.created_by == request.user %}bg-violet-700 {% else %}bg-gray-700{% endif %} rounded-xl">
+                <div>
+                    <p class="mb-4"><strong>{{message.created_by.username}} | {{message.created_at}}</strong></p>
+                    <p> {{message.content}} </p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <form action="." method="post" class="mt-6">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="mt-2 btn btn-primary btn-outline">Send</button>
+    </form>
+    {% endblock main%}

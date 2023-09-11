@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}
+{{item.name}} | 
+{% endblock title %}
+{% block main %}
+<div class="grid grid-cols-5 gap-6">
+    <div class="col-span-3">
+        <img src="{{item.image.url}}" alt="{{item.name}}" class="rounded-xl">
+    </div>
+    <div class="col-span-2 p-6 bg-gray-700 rounded-xl">
+        <h1 class="mb-6 text-3xl text-wghite uppercase">
+            {{ item.name }}
+        </h1>
+        <p class="text-gray-300"><strong>Price: $ {{item.price}}</strong></p>
+        <p class="text-gray-300"><strong>Seller: {{item.created_by}}</strong></p>
+        {% if item.description %}
+        <p class="text-gray-400">
+            <strong class="text-gray-300">
+                Description:
+            </strong><br>
+            {{item.description}}
+        </p>
+        {% endif %}
+        {% if request.user == item.created_by %}
+        <div class="rounded-xl mt-6 flex flex-col justify-center align-center p-4 bg-gray-800">
+        <p href="#" class="rounded-xl text-red-600">*This is your item!</p>
+        <div>
+        <a href="{%url 'item:edit' item.id %}" class="mt-1 btn btn-warning btn-outline">Edit</a>
+        <a href="{%url 'item:delete' item.id %}" class="mt-1 btn btn-error btn-outline">Delete</a>
+    </div>
+    </div>
+        {% else %}
+        <a href="{%url 'conversation:new' item.id %}" class="mt-6 btn btn-outline btn-primary">Contact seller</a>
+        {% endif %}
+    </div>
+</div>
+<div class="mt-6 px-6 py-12 rounded-xl bg-gray-800">
+    <h2 class="mb-12 text-2xl text-white uppercase text-center">
+        Related Items
+    </h2>
+    <div class="grid grid-cols-3 gap-3">
+        {% for item in related_items %}
+        <div>
+            <a href="{% url 'item:detail' item.id %}">
+                <div>
+                    <img src="{{ item.image.url }}" class="rounded-t-xl" alt="{{item.name}}">
+                </div>
+                <div class="p-6 bg-violet-800 rounded-b-xl">
+                    <h2 class="text-2xl text-gray-200">
+                        {{item.name}}
+                    </h2>
+                    <p class="text-gray-400">
+                        Price: $ {{item.price}}
+                    </p>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock main %}

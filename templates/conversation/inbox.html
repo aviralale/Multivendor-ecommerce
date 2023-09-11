@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}
+({{no_of_conversations}}) Inbox | 
+{% endblock title %}
+{% block main %}
+    <h1 class="mb-6 text-3xl">
+        Inbox <span class="badge badge-2xl bg-violet-700 font-semibold indicator-item">{{no_of_conversations}}</span>
+    </h1>
+    <div class="space-y-6">
+        {% for conversation in conversations %}
+        <a href="{%url 'conversation:detail' conversation.id%}">
+            <div class="p-6 flex bg-violet-700 rounded-xl">
+                <div class="pr-6">
+                    <img src="{{conversation.item.image.url}}" class="w-20 rounded-xl" alt="">
+                </div>
+                <div>
+                    {% for member in conversation.members.all %}
+                    {% if member != request.user%}
+                    <p class="mb-4">
+                        <strong>
+                            {{member.username}}
+                        </strong> | {{conversation.modified_at}}
+                    </p>
+                    <p>
+                        {{conversation.item.name}}
+                    </p>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% endblock main%}
